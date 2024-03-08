@@ -327,7 +327,7 @@ _{Explain here how the data archiving feature will be implemented}_
 **User Needs and Preferences**:
 
 * Efficient Customer Management:
-    * Has a need to organize and manage customer lists effectively.
+    * Can organize and manage customer lists effectively.
     * Prefers streamlined processes for handling customer information.
     * Values tools that optimize workflows and save time.
 * Mobile Accessibility:
@@ -337,7 +337,8 @@ _{Explain here how the data archiving feature will be implemented}_
     * Values secure access controls and data privacy compliance.
     * Prefers applications with backup and synchronization capabilities for data integrity.
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: 
+* manage contacts faster than a typical mouse/GUI driven app.
 
 ### User stories
 
