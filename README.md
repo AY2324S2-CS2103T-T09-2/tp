@@ -154,9 +154,9 @@ Example: `view <order>`
 Expected output:
 
 ```
-Frog Crochet: 
-1. total of <quantity> order by <customer name> on <date> 
-2. total of <quantity> order by <customer name> on <date> 
+Frog Crochet:
+1. total of <quantity> order by <customer name> on <date>
+2. total of <quantity> order by <customer name> on <date>
 [...]
 ```
 
@@ -181,7 +181,7 @@ Example: `view ranking`
 Expected output:
 
 ```
-Top 1: Frog Crochet, total sold of <quantity> 
+Top 1: Frog Crochet, total sold of <quantity>
 [...]
 ```
 
@@ -196,8 +196,8 @@ Example: `sort orderdate`
 Expected output:
 
 ```
-1. Jasper Tan, frog crochet, 24 Feb 2024 
-2. Tan Qin Yong, pig crochet, 1 Apr 2024 
+1. Jasper Tan, frog crochet, 24 Feb 2024
+2. Tan Qin Yong, pig crochet, 1 Apr 2024
 [...]
 ```
 
@@ -211,8 +211,8 @@ Expected output:
 
 ```
 Frog Crochet:
-1. Jasper Tan, 24 Feb 2024 
-2. QinYong, 1 Apr 2024 
+1. Jasper Tan, 24 Feb 2024
+2. QinYong, 1 Apr 2024
 [...]
 ```
 
@@ -226,7 +226,7 @@ Expected output:
 
 ```
 1. Jasper Tan
-2. Tan Qing Yong 
+2. Tan Qing Yong
 [...]
 ```
 
@@ -245,8 +245,8 @@ Example: `progress`
 Expected output:
 
 ```
-Left <quantity> 
-Done <quantity> 
+Left <quantity>
+Done <quantity>
 Pending <Quantity>"
 ```
 
@@ -271,8 +271,8 @@ Example: `help`
 Expected output:
 
 ```
-Commands list: 
-1. add. Adds a new customer to the list. Example: "add..." 
+Commands list:
+1. add. Adds a new customer to the list. Example: "add..."
 [...]
 ```
 
