@@ -320,11 +320,22 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* Small business owners in the crochet industry.
+* Prefers efficient ways to manage customer lists.
+* Values productivity and time-saving solutions.
+
+**User Needs and Preferences**:
+
+* Efficient Customer Management:
+    * Has a need to organize and manage customer lists effectively.
+    * Prefers streamlined processes for handling customer information.
+    * Values tools that optimize workflows and save time.
+* Mobile Accessibility:
+    * Appreciates the ability to access customer information on the go.
+    * Values mobile-friendly features for managing orders and inquiries efficiently.
+* Data Security and Backup:
+    * Values secure access controls and data privacy compliance.
+    * Prefers applications with backup and synchronization capabilities for data integrity.
 
 **Value proposition**: manage contacts faster than a typical mouse/GUI driven app
 
@@ -626,13 +637,22 @@ otherwise)
 2. Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be
    able to accomplish most of the tasks faster using commands than using the mouse.
-
-*{More to be added}*
+4. Should provide clear and informative error messages to users in case of unexpected errors. Additionally, detailed
+   logs should be maintained for system administrators to troubleshoot issues effectively.
+5. Application architecture should be scalable to accommodate future growth in terms of users and data volume, without
+   compromising performance.
+6. Automated backups of critical data should be performed, and there should be a documented and tested procedure for
+   data recovery in case of system failures or data loss.
 
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Application architecture**: Describes the patterns and techniques used to design and build an application
+* **System administrators**: Professionals responsible for managing, configuring, and ensuring the proper operation of
+  computer systems and servers
+* **Detailed logs**: Records that track events, operations, errors, and other significant activities that occur within a
+  software system or application.
 
 --------------------------------------------------------------------------------------------------------------------
 
