@@ -56,13 +56,4 @@ public class DateTimeUtil {
         return LocalDateTime.parse(dateTime, FORMATTER);
     }
 
-    /**
-     * Returns current date time as a String in the common datetime format.
-     *
-     * @return the current date time as a String.
-     */
-    public static String getCurrentTime() {
-        LocalDateTime now = LocalDateTime.now();
-        return formatDateTime(now);
-    }
 }

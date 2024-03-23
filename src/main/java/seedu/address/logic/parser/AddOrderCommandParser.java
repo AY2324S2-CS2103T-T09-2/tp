@@ -6,11 +6,12 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_BY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DETAILS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.NoSuchElementException;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.DateTimeUtil;
 import seedu.address.logic.commands.orders.AddOrderCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.order.Amount;
@@ -25,6 +26,11 @@ import seedu.address.model.order.Status;
  * Parses input arguments and creates a new AddOrderCommand object.
  */
 public class AddOrderCommandParser implements Parser<AddOrderCommand> {
+    public static String getCurrentTime() {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        return now.format(formatter);
+    }
 
     /**
      * Parses the given {@code String} of arguments in the context of the AddOrderCommand
@@ -44,9 +50,8 @@ public class AddOrderCommandParser implements Parser<AddOrderCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddOrderCommand.MESSAGE_USAGE), ive);
         }
-
         OrderId orderId = new OrderId();
-        OrderDate orderDate = new OrderDate(DateTimeUtil.getCurrentTime());
+        OrderDate orderDate = new OrderDate(getCurrentTime());
         Deadline deadline;
         Remark remark;
         Amount amount;
@@ -58,7 +63,6 @@ public class AddOrderCommandParser implements Parser<AddOrderCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddOrderCommand.MESSAGE_USAGE), error);
         }
-
         Status status = new Status("pending");
         Order order = new Order(orderId, orderDate, deadline, amount, remark, status);
         return new AddOrderCommand(index, order);
