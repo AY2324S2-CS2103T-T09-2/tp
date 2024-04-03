@@ -130,21 +130,23 @@ designers, and boutique flower businesses.
 ### 5.1 Command summary
 ### 5.1.1 Client
 
- Action     | Format, Examples                                                                                                                                                      
-------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
- **Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` 
- **Clear**  | `clear`                                                                                                                                                               
- **Delete** | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                   
- **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                           
- **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                            
- **List**   | `list`                                                                                                                                                                
- **Help**   | `help`                                                                                                                                                                
+|  Action    | Format, Examples                                                                                                                                                      |
+|------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` |
+| **Clear**  | `clear`                                                                                                                                                               |
+| **Delete** | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                   |
+| **Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                                        |
+| **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                                                            |
+| **List**   | `list`                                                                                                                                                                |
+| **Help**   | `help`                                                                                                                                                                |
 
 ### 5.1.2 Order
 
- Action       | Format, Examples                                                                             
---------------|----------------------------------------------------------------------------------------------
- **addOrder** | `add d/DESCRIPTION b/by p/PRICE` <br> e.g., `addOrder d/1xRoses b/23-07-2024 00:00 p/123.99` 
+| Action          | Format, Examples                                                                                          |
+|-----------------|-----------------------------------------------------------------------------------------------------------|
+| **addOrder**    | `addOrder INDEX d/DESCRIPTION b/by p/PRICE` <br> e.g., `addOrder 3 d/1xRoses b/23-07-2024 00:00 p/123.99` |
+| **deleteOrder** | `deleteOrder INDEX` <br/> `deleteOrder 3`                                                                 |
+| **editOrder**   | `editOrder d/DESCRIPTION b/by p/PRICE`                                                                    |
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -263,9 +265,8 @@ Examples:
 
 * `find John` returns `john` and `John Doe`
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+  ![result for 'find alex david'](images/findKarenResult.png)
 
-### <ins>Order Features:
 
 ### Exiting the program : `exit`
 
@@ -273,7 +274,21 @@ Exits the program.
 
 Format: `exit`
 
-### Deleting an order: deleteOrder INDEX
+### <ins>Order Features:
+
+### Adding an order: `addOrder`
+Adds an order into BookKeeper.
+
+Format: `addOrder INDEX d/DESCRIPTION b/by p/PRICE`
+
+* Adds the order to the user at the specified `INDEX`.
+  The index **must be a positive integer** 1, 2, 3, …​
+* All fields must be provided.
+
+Examples:
+* order 1 d/1xRoses c/40 by/23-07-2024 00:00
+
+### Deleting an order: `deleteOrder`
 
 Deletes the specified order from BookKeeper.
 
@@ -287,7 +302,7 @@ Examples:
 
 * `deleteOrder 2` deletes the 2nd order in the order list.
 
-### Editing an order : `editOrder INDEX`
+### Editing an order : `editOrder`
 
 Edits an existing order in BookKeeper.
 
