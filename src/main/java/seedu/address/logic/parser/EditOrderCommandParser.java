@@ -51,6 +51,9 @@ public class EditOrderCommandParser implements Parser<EditOrderCommand> {
         if (argMultimap.getValue(PREFIX_STATUS).isPresent()) {
             editOrderDescriptor.setStatus(ParserUtil.parseStatus(argMultimap.getValue(PREFIX_STATUS).get()));
         }
+        if (!editOrderDescriptor.isAnyFieldEdited()) {
+            throw new ParseException(EditOrderCommand.MESSAGE_NOT_EDITED);
+        }
 
         return new EditOrderCommand(targetIndex, editOrderDescriptor);
     }
