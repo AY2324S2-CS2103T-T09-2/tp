@@ -1,6 +1,10 @@
 package seedu.address.logic.commands.orders;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_BY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DETAILS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_STATUS;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ORDERS;
 
@@ -22,12 +26,11 @@ public class AddOrderCommand extends Command {
     public static final String COMMAND_WORD = "order";
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Creates an order that is associated to a client. "
-            + "Multiple orders will be appended to each other, "
-            + "and old orders will always be kept during this operation.\n"
-            + "Parameters: INDEX (must be a positive integer), "
-            + "DETAILS (in formation related to order), "
-            + "DEADLINE (the date the order is due) \n"
-            + "Example: " + COMMAND_WORD + " 1 d/1xRoses c/40 by/23-07-2024 00:00";
+            + "Parameters: INDEX (must be a positive integer) "
+            + PREFIX_DETAILS + "DETAILS "
+            + PREFIX_PRICE + "PRICE"
+            + PREFIX_BY + "DEADLINE \n"
+            + "Example: " + COMMAND_WORD + " 1 d/1xRoses c/20 by/23-07-2024 00:00";
 
     public static final String MESSAGE_SUCCESS = "New Order added! %1$s";
     private final Order order;

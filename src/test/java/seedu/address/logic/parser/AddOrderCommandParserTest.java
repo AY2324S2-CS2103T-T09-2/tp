@@ -15,6 +15,13 @@ import seedu.address.logic.commands.orders.AddOrderCommand;
 public class AddOrderCommandParserTest {
     private AddOrderCommandParser parser = new AddOrderCommandParser();
 
+    public static String getFutureDateForTest() {
+        LocalDateTime futureDate = LocalDateTime.now().plusDays(1);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        String futureDateString = futureDate.format(formatter);
+        return futureDateString;
+    }
+
     @Test
     public void parse_missingPrefixUserIndex_throwsParseException() {
         assertParseFailure(parser, "1", String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddOrderCommand.MESSAGE_USAGE));

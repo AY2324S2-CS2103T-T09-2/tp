@@ -17,6 +17,9 @@ public class Deadline implements Comparable<Deadline> {
             "A deadline should be in the format of "
                     + "DD-MM-YYYY HH:MM, e.g. 01-01-2024 23:59";
 
+    public static final String INVALID_DATE_CONSTRAINTS = "The deadline provided must be set for a time in the future "
+            + "and must not be before the current time.";
+
 
     public final LocalDateTime deadline;
 
@@ -31,12 +34,21 @@ public class Deadline implements Comparable<Deadline> {
         this.deadline = DateTimeUtil.parseDateTime(deadline);
     }
 
-
     /**
      * Returns true if a given string is a valid deadline.
+     * @returns boolean value to indicate true or false on the statement above.
      */
     public static boolean isValidDeadline(String test) {
         return DateTimeUtil.isValidDate(test);
+    }
+
+    /**
+     * Returns true if a given Date is after the current time.
+     * @return boolean value to indicate true or false on the statement above.
+     */
+    public static boolean isAfterCurrentDate(Deadline deadlineObj) {
+        LocalDateTime now = LocalDateTime.now();
+        return deadlineObj.deadline.isAfter(now);
     }
 
     @Override

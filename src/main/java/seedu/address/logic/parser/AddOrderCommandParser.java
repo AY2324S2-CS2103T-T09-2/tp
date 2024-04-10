@@ -44,7 +44,7 @@ public class AddOrderCommandParser implements Parser<AddOrderCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
             price = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get());
-            deadline = new Deadline(argMultimap.getValue(PREFIX_BY).get());
+            deadline = ParserUtil.parseDeadline(argMultimap.getValue(PREFIX_BY).get());
             remark = new Remark(argMultimap.getValue(PREFIX_DETAILS).get());
         } catch (NoSuchElementException error) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddOrderCommand.MESSAGE_USAGE),
