@@ -1,6 +1,8 @@
 package seedu.address.commons.util;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
@@ -9,6 +11,9 @@ import java.time.format.ResolverStyle;
  * Helper functions for handling datetimes.
  */
 public class DateTimeUtil {
+
+    public static final ZoneId SG_ZONEID = ZoneId.of("Asia/Singapore");
+
 
     public static final String MESSAGE_CONSTRAINTS = "Date should be in the format of dd/MM/yyyy";
 
@@ -50,7 +55,7 @@ public class DateTimeUtil {
      * @param dateTime the date to be formatted.
      * @return the current date time as a String.
      */
-    public static String formatDateTime(LocalDateTime dateTime) {
+    public static String formatDateTime(ZonedDateTime dateTime) {
         return dateTime.format(FORMATTER);
     }
 
@@ -60,8 +65,9 @@ public class DateTimeUtil {
      * @param dateTime the date to be parsed must be a valid dateTime.
      * @return the localDateTime object of the given date.
      */
-    public static LocalDateTime parseDateTime(String dateTime) {
-        return LocalDateTime.parse(dateTime, FORMATTER);
+    public static ZonedDateTime parseDateTime(String dateTime) {
+        LocalDateTime localDateTime = LocalDateTime.parse(dateTime, FORMATTER);
+        return localDateTime.atZone(SG_ZONEID);
     }
 
     /**
@@ -71,6 +77,16 @@ public class DateTimeUtil {
      */
     public static String getCurrentTime() {
         LocalDateTime now = LocalDateTime.now();
-        return formatDateTime(now);
+        return now.format(FORMATTER);
+    }
+
+    /**
+     * Returns current date time as a String in the common datetime format.
+     *
+     * @return the current date time as a String.
+     */
+    public static ZonedDateTime getCurrentZoneTime() {
+        LocalDateTime now = LocalDateTime.now();
+        return now.atZone(SG_ZONEID);
     }
 }

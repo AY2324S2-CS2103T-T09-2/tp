@@ -5,10 +5,21 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 
 import org.junit.jupiter.api.Test;
 
 class DateTimeUtilTest {
+
+    /**
+     * To test for the dd-HH-uuuu HH:mm format specified in the user guide.
+     */
+    private final DateTimeFormatter formatter = DateTimeFormatter
+            .ofPattern("dd-MM-uuuu HH:mm")
+            .withResolverStyle(ResolverStyle.STRICT);
 
     @Test
     void checkValidDate_validDate_success() {
@@ -55,17 +66,25 @@ class DateTimeUtilTest {
     @Test
     void formatDateTime_valid_success() {
         LocalDateTime dateTime = LocalDateTime.of(2020, 1, 1, 13, 59);
-        assertEquals("01-01-2020 13:59", DateTimeUtil.formatDateTime(dateTime));
+        assertEquals("01-01-2020 13:59", DateTimeUtil.formatDateTime(dateTime.atZone(DateTimeUtil.SG_ZONEID)));
     }
 
     @Test
     void parseDateTime_valid_success() {
         LocalDateTime dateTime = LocalDateTime.of(2020, 1, 1, 13, 59);
-        assertEquals(dateTime, DateTimeUtil.parseDateTime("01-01-2020 13:59"));
+        assertEquals(dateTime.atZone(ZoneId.of("Asia/Singapore")),
+                DateTimeUtil.parseDateTime("01-01-2020 13:59"));
     }
 
     @Test
     void getCurrentTime_currentTime_success() {
-        assertEquals(DateTimeUtil.formatDateTime(LocalDateTime.now()), DateTimeUtil.getCurrentTime());
+        assertEquals(ZonedDateTime.now(ZoneId.of("Asia/Singapore")).format(formatter),
+                DateTimeUtil.getCurrentTime());
+    }
+
+    @Test
+    void getCurrentZoneTime_currentTime_success() {
+        ZonedDateTime zonedDateTime = ZonedDateTime.now(ZoneId.of("Asia/Singapore"));
+        assertEquals(zonedDateTime, DateTimeUtil.getCurrentZoneTime());
     }
 }

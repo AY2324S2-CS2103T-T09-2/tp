@@ -3,7 +3,7 @@ package seedu.address.model.order;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 import seedu.address.commons.util.DateTimeUtil;
 
@@ -21,7 +21,7 @@ public class Deadline implements Comparable<Deadline> {
             + "and must not be before the current time.";
 
 
-    public final LocalDateTime deadline;
+    public final ZonedDateTime deadline;
 
     /**
      * Constructs a {@code deadline}.
@@ -47,8 +47,7 @@ public class Deadline implements Comparable<Deadline> {
      * @return boolean value to indicate true or false on the statement above.
      */
     public static boolean isAfterCurrentDate(Deadline deadlineObj) {
-        LocalDateTime now = LocalDateTime.now();
-        return deadlineObj.deadline.isAfter(now);
+        return deadlineObj.deadline.isAfter(DateTimeUtil.getCurrentZoneTime());
     }
 
     @Override

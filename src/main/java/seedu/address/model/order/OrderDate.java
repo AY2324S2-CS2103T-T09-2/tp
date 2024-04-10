@@ -3,7 +3,7 @@ package seedu.address.model.order;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 import seedu.address.commons.util.DateTimeUtil;
 
@@ -14,7 +14,7 @@ public class OrderDate {
     public static final String MESSAGE_CONSTRAINTS =
             "Order date should be in the format of DD-MM-YYYY HH:MM, e.g. 01-01-2024 23:59";
 
-    private final LocalDateTime orderDate;
+    private final ZonedDateTime orderDate;
 
     /**
      * Constructs a {@code OrderDate}.

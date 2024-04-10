@@ -6,9 +6,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_BY;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DETAILS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PRICE;
 
-import java.util.NoSuchElementException;
+import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.DateTimeUtil;
 import seedu.address.logic.commands.orders.AddOrderCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -26,6 +27,14 @@ import seedu.address.model.order.Status;
 public class AddOrderCommandParser implements Parser<AddOrderCommand> {
 
     /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+    /**
      * Parses the given {@code String} of arguments in the context of the AddOrderCommand
      * and returns an AddOrderCommand object for execution.
      *
@@ -36,21 +45,29 @@ public class AddOrderCommandParser implements Parser<AddOrderCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
                 PREFIX_DETAILS, PREFIX_BY, PREFIX_PRICE);
 
-        Index index;
-        OrderDate orderDate = new OrderDate(DateTimeUtil.getCurrentTime());
-        Deadline deadline;
-        Remark remark;
-        Price price;
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-            price = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get());
-            deadline = ParserUtil.parseDeadline(argMultimap.getValue(PREFIX_BY).get());
-            remark = new Remark(argMultimap.getValue(PREFIX_DETAILS).get());
-        } catch (NoSuchElementException error) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddOrderCommand.MESSAGE_USAGE),
-                    error);
+        String preamble = argMultimap.getPreamble();
+        if (!arePrefixesPresent(argMultimap, PREFIX_DETAILS, PREFIX_BY, PREFIX_PRICE)
+                || preamble.isBlank()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddOrderCommand.MESSAGE_USAGE));
         }
-        Order order = new Order(new OrderId(), orderDate, deadline, price, remark, new Status("pending"));
+
+        Index index;
+        try {
+            index = ParserUtil.parseIndex(preamble);
+        } catch (IllegalValueException ive) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddOrderCommand.MESSAGE_USAGE), ive);
+        }
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_DETAILS, PREFIX_BY, PREFIX_PRICE);
+        OrderId orderId = new OrderId();
+        OrderDate orderDate = new OrderDate(DateTimeUtil.getCurrentTime());
+        Deadline deadline = ParserUtil.parseDeadline(argMultimap.getValue(PREFIX_BY).get());
+        Remark remark = new Remark(argMultimap.getValue(PREFIX_DETAILS).get());
+        Price price = ParserUtil.parsePrice(argMultimap.getValue(PREFIX_PRICE).get());
+
+        Status status = new Status("pending");
+        Order order = new Order(orderId, orderDate, deadline, price, remark, status);
         return new AddOrderCommand(index, order);
     }
 
