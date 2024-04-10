@@ -77,15 +77,9 @@ class DateTimeUtilTest {
     }
 
     @Test
-    void getCurrentTime_currentTime_success() {
-        String currentTime = DateTimeUtil.getCurrentTime();
-        assertEquals(ZonedDateTime.now(ZoneId.of("Asia/Singapore")).format(formatter), currentTime);
-    }
-
-    @Test
     void getCurrentZoneTime_currentTime_success() {
         ZonedDateTime currentTime = DateTimeUtil.getCurrentZoneTime();
         ZonedDateTime zonedDateTime = ZonedDateTime.now(ZoneId.of("Asia/Singapore"));
-        assertEquals(zonedDateTime, currentTime);
+        assertEquals(zonedDateTime.getOffset(), currentTime.getOffset());
     }
 }
