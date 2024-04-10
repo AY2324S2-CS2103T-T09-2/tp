@@ -155,13 +155,12 @@ public class ParserUtil {
         String trimmedDeadline = deadline.trim();
         if (!Deadline.isValidDeadline(trimmedDeadline)) {
             throw new ParseException(Deadline.MESSAGE_CONSTRAINTS);
-        } else {
-            Deadline deadlineObj = new Deadline(trimmedDeadline);
-            if (!Deadline.isAfterCurrentDate(deadlineObj)) {
-                throw new ParseException(Deadline.INVALID_DATE_CONSTRAINTS);
-            }
-            return deadlineObj;
         }
+        Deadline deadlineObj = new Deadline(trimmedDeadline);
+        if (!Deadline.isAfterCurrentDate(deadlineObj)) {
+            throw new ParseException(Deadline.INVALID_DATE_CONSTRAINTS);
+        }
+        return deadlineObj;
     }
 
     /**
