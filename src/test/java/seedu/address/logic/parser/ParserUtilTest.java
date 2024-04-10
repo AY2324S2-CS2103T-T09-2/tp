@@ -46,7 +46,7 @@ public class ParserUtilTest {
     private static final String INVALID_PRICE = "ab";
     private static final String INVALID_REMARK = " ";
     private static final String INVALID_STATUS = "ALMOST";
-    private static final String VALID_DEADLINE = "23-07-2024 10:23";
+    private static final String VALID_DEADLINE = AddOrderCommandParserTest.getFutureDateForTest();
     private static final String VALID_PRICE = "40";
     private static final String VALID_REMARK = "1xRoses";
     private static final String VALID_STATUS = "PENDING";

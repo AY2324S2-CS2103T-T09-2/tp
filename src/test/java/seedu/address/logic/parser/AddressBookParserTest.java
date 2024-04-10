@@ -95,7 +95,7 @@ public class AddressBookParserTest {
     public void parseCommand_createOrder() throws Exception {
         String remarks = " d/1xRoses";
         String cost = " c/100";
-        String date = " by/10-10-2024 00:00";
+        String date = " by/" + AddOrderCommandParserTest.getFutureDateForTest();
         assertTrue(parser.parseCommand(AddOrderCommand.COMMAND_WORD + " 1"
                 + remarks + cost + date) instanceof AddOrderCommand);
     }
@@ -113,7 +113,7 @@ public class AddressBookParserTest {
     public void parseCommand_editOrder() throws Exception {
         String remarks = " d/ 1xRoses";
         String price = " c/ 40";
-        String deadline = " by/ 23-07-2024 10:10";
+        String deadline = " by/ " + AddOrderCommandParserTest.getFutureDateForTest();
         String status = " s/ PENDING";
         assertTrue(parser.parseCommand(EditOrderCommand.COMMAND_WORD + " 1"
                 + deadline + price + remarks + status) instanceof EditOrderCommand);
