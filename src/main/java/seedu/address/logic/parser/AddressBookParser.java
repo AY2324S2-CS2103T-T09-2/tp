@@ -9,18 +9,25 @@ import java.util.regex.Pattern;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.clients.AddCommand;
-import seedu.address.logic.commands.clients.ClearCommand;
-import seedu.address.logic.commands.clients.DeleteCommand;
-import seedu.address.logic.commands.clients.EditCommand;
-import seedu.address.logic.commands.clients.ExitCommand;
-import seedu.address.logic.commands.clients.FindCommand;
-import seedu.address.logic.commands.clients.HelpCommand;
-import seedu.address.logic.commands.clients.ListCommand;
-import seedu.address.logic.commands.orders.AddOrderCommand;
-import seedu.address.logic.commands.orders.DeleteOrderCommand;
-import seedu.address.logic.commands.orders.EditOrderCommand;
+import seedu.address.logic.commands.client.AddCommand;
+import seedu.address.logic.commands.client.ClearCommand;
+import seedu.address.logic.commands.client.DeleteCommand;
+import seedu.address.logic.commands.client.EditCommand;
+import seedu.address.logic.commands.client.ExitCommand;
+import seedu.address.logic.commands.client.FindCommand;
+import seedu.address.logic.commands.client.HelpCommand;
+import seedu.address.logic.commands.client.ListCommand;
+import seedu.address.logic.commands.order.AddOrderCommand;
+import seedu.address.logic.commands.order.DeleteOrderCommand;
+import seedu.address.logic.commands.order.EditOrderCommand;
+import seedu.address.logic.parser.client.AddCommandParser;
+import seedu.address.logic.parser.client.DeleteCommandParser;
+import seedu.address.logic.parser.client.EditCommandParser;
+import seedu.address.logic.parser.client.FindCommandParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.parser.order.AddOrderCommandParser;
+import seedu.address.logic.parser.order.DeleteOrderCommandParser;
+import seedu.address.logic.parser.order.EditOrderCommandParser;
 
 /**
  * Parses user input.

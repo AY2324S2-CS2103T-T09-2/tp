@@ -7,7 +7,8 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_ORDER;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.orders.DeleteOrderCommand;
+import seedu.address.logic.commands.order.DeleteOrderCommand;
+import seedu.address.logic.parser.order.DeleteOrderCommandParser;
 
 /**
  * Contains unit tests for {@code DeleteOrderCommandParser}.

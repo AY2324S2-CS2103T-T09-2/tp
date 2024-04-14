@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import seedu.address.logic.commands.orders.EditOrderCommand.EditOrderDescriptor;
+import seedu.address.logic.commands.order.EditOrderCommand.EditOrderDescriptor;
 import seedu.address.model.order.Deadline;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.OrderDate;

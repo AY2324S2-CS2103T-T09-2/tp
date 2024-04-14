@@ -10,7 +10,8 @@ import java.time.format.DateTimeFormatter;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.util.DateTimeUtil;
-import seedu.address.logic.commands.orders.AddOrderCommand;
+import seedu.address.logic.commands.order.AddOrderCommand;
+import seedu.address.logic.parser.order.AddOrderCommandParser;
 
 public class AddOrderCommandParserTest {
     private AddOrderCommandParser parser = new AddOrderCommandParser();
