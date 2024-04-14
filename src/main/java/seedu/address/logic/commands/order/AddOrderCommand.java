@@ -12,11 +12,11 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.client.Client;
 import seedu.address.model.order.Order;
-import seedu.address.model.person.Person;
 
 /**
- * Adds an order to an assigned person.
+ * Adds an order to an assigned client.
  */
 public class AddOrderCommand extends Command {
     public static final String COMMAND_WORD = "order";
@@ -47,26 +47,26 @@ public class AddOrderCommand extends Command {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        List<Person> lastShownList = model.getFilteredPersonList();
+        List<Client> lastShownList = model.getFilteredPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = personToEdit.addOrder(order);
-        order.setPerson(editedPerson);
+        Client clientToEdit = lastShownList.get(index.getZeroBased());
+        Client editedClient = clientToEdit.addOrder(order);
+        order.setPerson(editedClient);
 
-        model.setPersonAndAddOrder(personToEdit, editedPerson, this.order);
+        model.setPersonAndAddOrder(clientToEdit, editedClient, this.order);
         model.updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
-        return new CommandResult(generateSuccessMessage(editedPerson));
+        return new CommandResult(generateSuccessMessage(editedClient));
     }
 
     /**
      * Generates a command execution success message based on whether
      * the order is added to or removed from
-     * {@code personToEdit}.
+     * {@code clientToEdit}.
      */
-    private String generateSuccessMessage(Person personToEdit) {
-        return String.format(MESSAGE_SUCCESS, personToEdit.getName());
+    private String generateSuccessMessage(Client clientToEdit) {
+        return String.format(MESSAGE_SUCCESS, clientToEdit.getName());
     }
 }

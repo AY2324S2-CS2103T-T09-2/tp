@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.client;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -21,13 +21,13 @@ import seedu.address.model.order.Order;
 import seedu.address.testutil.OrderBuilder;
 import seedu.address.testutil.PersonBuilder;
 
-public class PersonTest {
+public class ClientTest {
 
     @Test
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
-        Person person = new PersonBuilder().build();
-        assertThrows(UnsupportedOperationException.class, () -> person.getTags().remove(0));
-        assertThrows(UnsupportedOperationException.class, () -> person.getOrders().remove(0));
+        Client client = new PersonBuilder().build();
+        assertThrows(UnsupportedOperationException.class, () -> client.getTags().remove(0));
+        assertThrows(UnsupportedOperationException.class, () -> client.getOrders().remove(0));
     }
 
     @Test
@@ -39,7 +39,7 @@ public class PersonTest {
         assertFalse(ALICE.isSamePerson(null));
 
         // same name, all other attributes different -> returns true
-        Person editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
+        Client editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB)
                 .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertTrue(ALICE.isSamePerson(editedAlice));
 
@@ -48,7 +48,7 @@ public class PersonTest {
         assertFalse(ALICE.isSamePerson(editedAlice));
 
         // name differs in case, all other attributes same -> returns false
-        Person editedBob = new PersonBuilder(BOB).withName(VALID_NAME_BOB.toLowerCase()).build();
+        Client editedBob = new PersonBuilder(BOB).withName(VALID_NAME_BOB.toLowerCase()).build();
         assertFalse(BOB.isSamePerson(editedBob));
 
         // name has trailing spaces, all other attributes same -> returns false
@@ -60,21 +60,21 @@ public class PersonTest {
     @Test
     public void isSameTestWithOrder() {
         PersonBuilder personBuilder = new PersonBuilder();
-        Person person = personBuilder.build();
+        Client client = personBuilder.build();
         OrderBuilder orderBuilder = new OrderBuilder();
         Order order = orderBuilder.build();
         Set<Order> setOfOrders = new HashSet<>();
         setOfOrders.add(order);
 
-        Person editedAlice = new Person(person.getName(), person.getPhone(),
-                person.getEmail(), person.getAddress(), person.getTags(), setOfOrders);
-        assertTrue(person.isSamePerson(editedAlice));
+        Client editedAlice = new Client(client.getName(), client.getPhone(),
+                client.getEmail(), client.getAddress(), client.getTags(), setOfOrders);
+        assertTrue(client.isSamePerson(editedAlice));
     }
 
     @Test
     public void equals() {
         // same values -> returns true
-        Person aliceCopy = new PersonBuilder(ALICE).build();
+        Client aliceCopy = new PersonBuilder(ALICE).build();
         assertTrue(ALICE.equals(aliceCopy));
 
         // same object -> returns true
@@ -86,11 +86,11 @@ public class PersonTest {
         // different type -> returns false
         assertFalse(ALICE.equals(5));
 
-        // different person -> returns false
+        // different client -> returns false
         assertFalse(ALICE.equals(BOB));
 
         // different name -> returns false
-        Person editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        Client editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
         assertFalse(ALICE.equals(editedAlice));
 
         // different phone -> returns false
@@ -113,7 +113,7 @@ public class PersonTest {
 
     @Test
     public void toStringMethod() {
-        String expected = Person.class.getCanonicalName() + "{name=" + ALICE.getName() + ", phone=" + ALICE.getPhone()
+        String expected = Client.class.getCanonicalName() + "{name=" + ALICE.getName() + ", phone=" + ALICE.getPhone()
                 + ", email=" + ALICE.getEmail() + ", address=" + ALICE.getAddress() + ", tags=" + ALICE.getTags()
                 + ", orders=" + ALICE.getOrders() + "}";
         assertEquals(expected, ALICE.toString());

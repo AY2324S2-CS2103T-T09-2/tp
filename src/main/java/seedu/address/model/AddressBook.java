@@ -6,9 +6,9 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.client.Client;
+import seedu.address.model.client.UniquePersonList;
 import seedu.address.model.order.Order;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
 
 /**
  * Wraps all data at the address-book level.
@@ -42,11 +42,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the client list with {@code clients}.
+     * {@code clients} must not contain duplicate clients.
      */
-    public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+    public void setPersons(List<Client> clients) {
+        this.persons.setPersons(clients);
     }
 
     /**
@@ -58,60 +58,60 @@ public class AddressBook implements ReadOnlyAddressBook {
         setPersons(newData.getPersonList());
     }
 
-    //// person-level operations
+    //// client-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a client with the same identity as {@code client} exists in the address book.
      */
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return persons.contains(person);
+    public boolean hasPerson(Client client) {
+        requireNonNull(client);
+        return persons.contains(client);
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a client to the address book.
+     * The client must not already exist in the address book.
      */
-    public void addPerson(Person p) {
+    public void addPerson(Client p) {
         persons.add(p);
     }
 
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * Replaces the given client {@code target} in the list with {@code editedClient}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * The client identity of {@code editedClient} must not be the same as another existing client in the address book.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
-        persons.setPerson(target, editedPerson);
+    public void setPerson(Client target, Client editedClient) {
+        requireNonNull(editedClient);
+        persons.setPerson(target, editedClient);
     }
 
-    public void setPersonAndAddOrder(Person target, Person editedPerson, Order order) {
-        requireNonNull(editedPerson);
-        persons.setPersonAndAddOrder(target, editedPerson, order);
+    public void setPersonAndAddOrder(Client target, Client editedClient, Order order) {
+        requireNonNull(editedClient);
+        persons.setPersonAndAddOrder(target, editedClient, order);
     }
 
-    public void setPersonAndDeleteOrder(Person target, Person editedPerson, Order order) {
-        requireNonNull(editedPerson);
-        persons.setPersonAndDeleteOrder(target, editedPerson, order);
+    public void setPersonAndDeleteOrder(Client target, Client editedClient, Order order) {
+        requireNonNull(editedClient);
+        persons.setPersonAndDeleteOrder(target, editedClient, order);
     }
 
     /**
      * Replaces the given order {@code target} in the list with {@code editedOrder}.
      * {@code target} must exist in the address book.
-     * The person identity of {@code editedOrder} must not be the same as another existing person in the address book.
+     * The client identity of {@code editedOrder} must not be the same as another existing client in the address book.
      */
-    public void setPersonAndEditOrder(Person target, Person editedPerson, Order order, Order editedOrder) {
+    public void setPersonAndEditOrder(Client target, Client editedClient, Order order, Order editedOrder) {
         requireNonNull(editedOrder);
-        persons.setPersonAndEditOrder(target, editedPerson, order, editedOrder);
+        persons.setPersonAndEditOrder(target, editedClient, order, editedOrder);
     }
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removePerson(Person key) {
+    public void removePerson(Client key) {
         persons.remove(key);
     }
 
@@ -120,12 +120,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("persons", persons)
+                .add("clients", persons)
                 .toString();
     }
 
     @Override
-    public ObservableList<Person> getPersonList() {
+    public ObservableList<Client> getPersonList() {
         return persons.asUnmodifiableObservableList();
     }
 

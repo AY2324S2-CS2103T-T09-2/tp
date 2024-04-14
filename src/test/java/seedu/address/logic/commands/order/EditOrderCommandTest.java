@@ -24,8 +24,8 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.client.Client;
 import seedu.address.model.order.Order;
-import seedu.address.model.person.Person;
 import seedu.address.testutil.OrderBuilder;
 import seedu.address.testutil.PersonBuilder;
 
@@ -37,10 +37,10 @@ public class EditOrderCommandTest {
     // @Test
     // public void execute_editOrderByModel_editSuccessful() throws Exception {
     //     PersonBuilder personBuilder = new PersonBuilder();
-    //     Person person = personBuilder.build();
+    //     Client client = personBuilder.build();
     //     OrderBuilder orderBuilder = new OrderBuilder();
     //     Order originalOrder = orderBuilder.build();
-    //     ModelStubEditingOrder modelStub = new ModelStubEditingOrder(originalOrder, person);
+    //     ModelStubEditingOrder modelStub = new ModelStubEditingOrder(originalOrder, client);
     //     Order editedOrder = orderBuilder.withStatus("completed").build();
     //     EditOrderCommand.EditOrderDescriptor descriptor = new EditOrderDescriptorBuilder(editedOrder).build();
     //     EditOrderCommand editOrderCommand = new EditOrderCommand(INDEX_FIRST_PERSON, descriptor);
@@ -63,7 +63,7 @@ public class EditOrderCommandTest {
     // @Test
     // public void testExecute_createEditedOrder() throws Exception {
     //     PersonBuilder personBuilder = new PersonBuilder();
-    //     Person person = personBuilder.build();
+    //     Client client = personBuilder.build();
     //
     //     // Create an original order
     //     Order originalOrder = new Order(new OrderId(), new OrderDate("01-02-2024 10:09"),
@@ -81,10 +81,10 @@ public class EditOrderCommandTest {
     //     // Create EditOrderCommand with target index and edit descriptor
     //     EditOrderCommand editOrderCommand = new EditOrderCommand(Index.fromZeroBased(0), editDescriptor);
     //
-    //     // Create a model with the original order and associated person
+    //     // Create a model with the original order and associated client
     //     Model model = new ModelManager();
-    //     model.addPerson(person); // Add the person to the model
-    //     model.setPersonAndAddOrder(person, person, originalOrder); // Pass same person for target and editedPerson
+    //     model.addPerson(client); // Add the client to the model
+    //     model.setPersonAndAddOrder(client, client, originalOrder); // Pass same client for target and editedPerson
     //
     //     // Execute the edit command
     //     editOrderCommand.execute(model);
@@ -105,10 +105,10 @@ public class EditOrderCommandTest {
     @Test
     public void execute_orderAcceptedByModel_indexError() throws Exception {
         PersonBuilder personBuilder = new PersonBuilder();
-        Person person = personBuilder.build();
+        Client client = personBuilder.build();
         OrderBuilder orderBuilder = new OrderBuilder();
         Order order = orderBuilder.build();
-        ModelStubEditingOrder modelStub = new ModelStubEditingOrder(order, person);
+        ModelStubEditingOrder modelStub = new ModelStubEditingOrder(order, client);
         Index targetIndex = INDEX_SECOND_ORDER;
         EditOrderCommand editOrderCommand = new EditOrderCommand(targetIndex,
                 new EditOrderCommand.EditOrderDescriptor());
@@ -150,7 +150,7 @@ public class EditOrderCommandTest {
         }
 
         @Override
-        public void addPerson(Person person) {
+        public void addPerson(Client client) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -165,37 +165,37 @@ public class EditOrderCommandTest {
         }
 
         @Override
-        public boolean hasPerson(Person person) {
+        public boolean hasPerson(Client client) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void deletePerson(Person target) {
+        public void deletePerson(Client target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPerson(Person target, Person editedPerson) {
+        public void setPerson(Client target, Client editedClient) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPersonAndAddOrder(Person target, Person editedPerson, Order order) {
+        public void setPersonAndAddOrder(Client target, Client editedClient, Order order) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPersonAndDeleteOrder(Person target, Person editedPerson, Order order) {
+        public void setPersonAndDeleteOrder(Client target, Client editedClient, Order order) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setPersonAndEditOrder(Person target, Person editedPerson, Order order, Order editedOrder) {
+        public void setPersonAndEditOrder(Client target, Client editedClient, Order order, Order editedOrder) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ObservableList<Person> getFilteredPersonList() {
+        public ObservableList<Client> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -205,7 +205,7 @@ public class EditOrderCommandTest {
         }
 
         @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
+        public void updateFilteredPersonList(Predicate<Client> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -221,38 +221,38 @@ public class EditOrderCommandTest {
      */
     private class ModelStubEditingOrder extends seedu.address.logic.commands.order.EditOrderCommandTest.ModelStub {
         private Order order;
-        private Person person;
+        private Client client;
 
-        ModelStubEditingOrder(Order order, Person person) {
+        ModelStubEditingOrder(Order order, Client client) {
             requireNonNull(order);
             this.order = order;
-            this.person = person;
+            this.client = client;
         }
 
         @Override
-        public void setPerson(Person target, Person editedPerson) {
-            requireAllNonNull(target, editedPerson);
-            this.person = editedPerson;
+        public void setPerson(Client target, Client editedClient) {
+            requireAllNonNull(target, editedClient);
+            this.client = editedClient;
         }
 
         @Override
-        public void setPersonAndAddOrder(Person target, Person editedPerson, Order order) {
-            requireAllNonNull(target, editedPerson);
-            this.person = editedPerson;
+        public void setPersonAndAddOrder(Client target, Client editedClient, Order order) {
+            requireAllNonNull(target, editedClient);
+            this.client = editedClient;
         }
 
         @Override
-        public void setPersonAndDeleteOrder(Person target, Person editedPerson, Order order) {
-            requireAllNonNull(target, editedPerson, order);
-            this.person = editedPerson;
+        public void setPersonAndDeleteOrder(Client target, Client editedClient, Order order) {
+            requireAllNonNull(target, editedClient, order);
+            this.client = editedClient;
         }
 
         @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            List<Person> sampleList = new ArrayList<>();
-            sampleList.add(this.person);
-            ObservableList<Person> personList = FXCollections.observableArrayList(sampleList);
-            return personList;
+        public ObservableList<Client> getFilteredPersonList() {
+            List<Client> sampleList = new ArrayList<>();
+            sampleList.add(this.client);
+            ObservableList<Client> clientList = FXCollections.observableArrayList(sampleList);
+            return clientList;
         }
 
         @Override
@@ -264,14 +264,14 @@ public class EditOrderCommandTest {
         }
 
         private ObservableList<Order> getOrderList() {
-            ObservableList<Order> orderList = FXCollections.observableArrayList(this.person.getOrders());
+            ObservableList<Order> orderList = FXCollections.observableArrayList(this.client.getOrders());
             return orderList;
         }
 
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             AddressBook addressBook = new AddressBook();
-            addressBook.addPerson(this.person);
+            addressBook.addPerson(this.client);
             return addressBook;
         }
 

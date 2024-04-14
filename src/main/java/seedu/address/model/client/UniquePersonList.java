@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.client;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -9,43 +9,43 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.client.exceptions.DuplicatePersonException;
+import seedu.address.model.client.exceptions.PersonNotFoundException;
 import seedu.address.model.order.Order;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
- * A person is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
- * persons uses Person#isSamePerson(Person) for equality so as to ensure that the person being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a person uses Person#equals(Object) so
- * as to ensure that the person with exactly the same fields will be removed.
+ * A client is considered unique by comparing using {@code Client#isSamePerson(Client)}. As such, adding and updating of
+ * persons uses Client#isSamePerson(Client) for equality so as to ensure that the client being added or updated is
+ * unique in terms of identity in the UniquePersonList. However, the removal of a client uses Client#equals(Object) so
+ * as to ensure that the client with exactly the same fields will be removed.
  * <p>
  * Supports a minimal set of list operations.
  *
- * @see Person#isSamePerson(Person)
+ * @see Client#isSamePerson(Client)
  */
-public class UniquePersonList implements Iterable<Person> {
+public class UniquePersonList implements Iterable<Client> {
 
-    private final ObservableList<Person> internalList = FXCollections.observableArrayList();
-    private final ObservableList<Person> internalUnmodifiableList =
+    private final ObservableList<Client> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Client> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
     private final ObservableList<Order> internalOrderList = FXCollections.observableArrayList();
     private final ObservableList<Order> internalUnmodifiableListOrder =
             FXCollections.unmodifiableObservableList(internalOrderList);
 
     /**
-     * Returns true if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent client as the given argument.
      */
-    public boolean contains(Person toCheck) {
+    public boolean contains(Client toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(toCheck::isSamePerson);
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds a client to the list.
+     * The client must not already exist in the list.
      */
-    public void add(Person toAdd) {
+    public void add(Client toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicatePersonException();
@@ -54,75 +54,75 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the client {@code target} in the list with {@code editedClient}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
+     * The client identity of {@code editedClient} must not be the same as another existing client in the list.
      */
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
+    public void setPerson(Client target, Client editedClient) {
+        requireAllNonNull(target, editedClient);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
             throw new PersonNotFoundException();
         }
 
-        if (!target.isSamePerson(editedPerson) && contains(editedPerson)) {
+        if (!target.isSamePerson(editedClient) && contains(editedClient)) {
             throw new DuplicatePersonException();
         }
 
-        internalList.set(index, editedPerson);
+        internalList.set(index, editedClient);
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the client {@code target} in the list with {@code editedClient}.
      * Removes the respective Order object from the ObservableList as well.
      *
-     * @param target       person to be removed.
-     * @param editedPerson person to be added.
+     * @param target       client to be removed.
+     * @param editedClient client to be added.
      * @param order        order to be added.
      */
-    public void setPersonAndDeleteOrder(Person target, Person editedPerson, Order order) {
-        setPerson(target, editedPerson);
+    public void setPersonAndDeleteOrder(Client target, Client editedClient, Order order) {
+        setPerson(target, editedClient);
         internalOrderList.remove(order);
         sortOrders();
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the client {@code target} in the list with {@code editedClient}.
      * Adds the Order object to the ObservableList as well.
      *
-     * @param target       person to be removed.
-     * @param editedPerson person to be added.
+     * @param target       client to be removed.
+     * @param editedClient client to be added.
      * @param order        order to be removed.
      */
-    public void setPersonAndAddOrder(Person target, Person editedPerson, Order order) {
-        setPerson(target, editedPerson);
+    public void setPersonAndAddOrder(Client target, Client editedClient, Order order) {
+        setPerson(target, editedClient);
         internalOrderList.add(order);
         sortOrders();
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the client {@code target} in the list with {@code editedClient}.
      *
-     * @param person        person to be removed.
-     * @param editedPerson  person to be added.
+     * @param client        client to be removed.
+     * @param editedClient  client to be added.
      * @param orderToDelete order to be removed.
      * @param orderToAdd    order to be added.
      */
 
-    public void setPersonAndEditOrder(Person person, Person editedPerson, Order orderToDelete, Order orderToAdd) {
-        requireAllNonNull(person, orderToDelete, orderToAdd);
-        setPerson(person, editedPerson);
+    public void setPersonAndEditOrder(Client client, Client editedClient, Order orderToDelete, Order orderToAdd) {
+        requireAllNonNull(client, orderToDelete, orderToAdd);
+        setPerson(client, editedClient);
         int index = internalOrderList.indexOf(orderToDelete);
         internalOrderList.set(index, orderToAdd);
         sortOrders();
     }
 
     /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
+     * Removes the equivalent client from the list.
+     * The client must exist in the list.
      */
-    public void remove(Person toRemove) {
+    public void remove(Client toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new PersonNotFoundException();
@@ -136,16 +136,16 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Replaces the contents of this list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of this list with {@code clients}.
+     * {@code clients} must not contain duplicate clients.
      */
-    public void setPersons(List<Person> persons) {
-        requireAllNonNull(persons);
-        if (!personsAreUnique(persons)) {
+    public void setPersons(List<Client> clients) {
+        requireAllNonNull(clients);
+        if (!personsAreUnique(clients)) {
             throw new DuplicatePersonException();
         }
 
-        internalList.setAll(persons);
+        internalList.setAll(clients);
         setOrders();
     }
 
@@ -153,7 +153,7 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<Person> asUnmodifiableObservableList() {
+    public ObservableList<Client> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
 
@@ -167,8 +167,8 @@ public class UniquePersonList implements Iterable<Person> {
 
     private void setOrders() {
         List<Order> creationOrderList = new ArrayList<>();
-        for (Person person : internalList) {
-            creationOrderList.addAll(person.getOrdersList());
+        for (Client client : internalList) {
+            creationOrderList.addAll(client.getOrdersList());
         }
         internalOrderList.setAll(creationOrderList);
     }
@@ -179,7 +179,7 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     @Override
-    public Iterator<Person> iterator() {
+    public Iterator<Client> iterator() {
         return internalList.iterator();
     }
 
@@ -209,12 +209,12 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Returns true if {@code persons} contains only unique persons.
+     * Returns true if {@code clients} contains only unique clients.
      */
-    private boolean personsAreUnique(List<Person> persons) {
-        for (int i = 0; i < persons.size() - 1; i++) {
-            for (int j = i + 1; j < persons.size(); j++) {
-                if (persons.get(i).isSamePerson(persons.get(j))) {
+    private boolean personsAreUnique(List<Client> clients) {
+        for (int i = 0; i < clients.size() - 1; i++) {
+            for (int j = i + 1; j < clients.size(); j++) {
+                if (clients.get(i).isSamePerson(clients.get(j))) {
                     return false;
                 }
             }

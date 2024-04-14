@@ -14,8 +14,8 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.client.Client;
 import seedu.address.model.order.Order;
-import seedu.address.model.person.Person;
 
 
 /**
@@ -58,27 +58,27 @@ public class DeleteOrderCommand extends Command {
 
         Order orderToDelete = lastShownOrderList.get(targetIndex.getZeroBased());
 
-        List<Person> personList = model.getFilteredPersonList();
-        Pair<Person, Person> pair = getEditedPerson(personList, orderToDelete);
-        Person person = pair.getFirst();
-        Person editedPerson = pair.getSecond();
+        List<Client> clientList = model.getFilteredPersonList();
+        Pair<Client, Client> pair = getEditedPerson(clientList, orderToDelete);
+        Client client = pair.getFirst();
+        Client editedClient = pair.getSecond();
 
-        model.setPersonAndDeleteOrder(person, editedPerson, orderToDelete);
+        model.setPersonAndDeleteOrder(client, editedClient, orderToDelete);
         model.updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(orderToDelete)));
     }
 
-    private Pair<Person, Person> getEditedPerson(List<Person> personList, Order orderToDelete) throws CommandException {
+    private Pair<Client, Client> getEditedPerson(List<Client> clientList, Order orderToDelete) throws CommandException {
 
-        for (Person person : personList) {
-            if (person.getOrders().contains(orderToDelete)) {
-                Person editedPerson = new Person(
-                        person.getName(), person.getPhone(), person.getEmail(),
-                        person.getAddress(), person.getTags(),
-                        removeOrder(orderToDelete, person.getOrders()));
+        for (Client client : clientList) {
+            if (client.getOrders().contains(orderToDelete)) {
+                Client editedClient = new Client(
+                        client.getName(), client.getPhone(), client.getEmail(),
+                        client.getAddress(), client.getTags(),
+                        removeOrder(orderToDelete, client.getOrders()));
 
-                return new Pair<>(person, editedPerson);
+                return new Pair<>(client, editedClient);
             }
         }
         throw new CommandException(MESSAGE_DELETE_ORDER_FAILURE);

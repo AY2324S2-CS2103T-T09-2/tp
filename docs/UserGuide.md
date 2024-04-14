@@ -275,7 +275,7 @@ Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
 * A client can have any number of tags (including 0).
 * Tags do not accept whitespaces (e.g. "VIP 2" is not accepted, "VIP2" is accepted).
 * Name and Tags only accept 0-9 and a-z (case-insensitive).
-* Name must be unique. (BookKeeper does not currently support having multiple persons with the same name).
+* Name must be unique. (BookKeeper does not currently support having multiple clients with the same name).
 * Phone number must be numeric and at least 3 numbers. It must not contain spaces ` `, brackets `()` or hyphens `-`,
   plus `+`, or other symbols.
 

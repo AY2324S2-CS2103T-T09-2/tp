@@ -68,7 +68,7 @@ class OrderTest {
                 .build();
         assertNotEquals(ROSES, editedRoses);
 
-        // different person -> returns false
+        // different client -> returns false
         editedRoses = new OrderBuilder(ROSES)
                 .withPerson(TypicalPersons.CARL)
                 .build();

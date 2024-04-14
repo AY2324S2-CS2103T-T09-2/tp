@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.client;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -15,10 +15,10 @@ import seedu.address.model.tag.Tag;
 
 
 /**
- * Represents a Person in the address book.
+ * Represents a Client in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public class Client {
 
     // Identity fields
     private final Name name;
@@ -33,7 +33,7 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address,
+    public Client(Name name, Phone phone, Email email, Address address,
                   Set<Tag> tags, Set<Order> orders) {
         requireAllNonNull(name, phone, email, address, tags, orders);
         this.name = name;
@@ -77,32 +77,32 @@ public class Person {
     }
 
     /**
-     * Returns a new Person object, with the specified Order added to the orders object.
+     * Returns a new Client object, with the specified Order added to the orders object.
      *
      * @param order the order to be added
-     * @return new Person object
+     * @return new Client object
      */
-    public Person addOrder(Order order) {
+    public Client addOrder(Order order) {
         Set<Order> newOrders = new HashSet<>(orders);
         newOrders.add(order);
-        return new Person(this.name, this.phone, this.email, this.address, this.getTags(), newOrders);
+        return new Client(this.name, this.phone, this.email, this.address, this.getTags(), newOrders);
     }
 
     /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
      */
-    public boolean isSamePerson(Person otherPerson) {
-        if (otherPerson == this) {
+    public boolean isSamePerson(Client otherClient) {
+        if (otherClient == this) {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName());
+        return otherClient != null
+                && otherClient.getName().equals(getName());
     }
 
     /**
-     * The list of orders in this person.
+     * The list of orders in this client.
      */
     public List<Order> getOrdersList() {
         return new ArrayList<>(orders);
@@ -119,17 +119,17 @@ public class Person {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Client)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
-        return name.equals(otherPerson.name)
-                && phone.equals(otherPerson.phone)
-                && email.equals(otherPerson.email)
-                && address.equals(otherPerson.address)
-                && tags.equals(otherPerson.tags)
-                && orders.equals(otherPerson.orders);
+        Client otherClient = (Client) other;
+        return name.equals(otherClient.name)
+                && phone.equals(otherClient.phone)
+                && email.equals(otherClient.email)
+                && address.equals(otherClient.address)
+                && tags.equals(otherClient.tags)
+                && orders.equals(otherClient.orders);
     }
 
     @Override

@@ -6,7 +6,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.person.Person;
+import seedu.address.model.client.Client;
 
 /**
  * Represents an Order.
@@ -18,7 +18,7 @@ public class Order {
     private final Price price;
     private final Remark remark;
     private final Status status;
-    private Person person;
+    private Client client;
 
     /**
      * Every field must be present and not null.
@@ -39,15 +39,15 @@ public class Order {
      * Every field must be present and not null.
      */
     public Order(OrderId orderId, OrderDate orderDate, Deadline deadline,
-                 Price price, Remark remark, Status status, Person person) {
-        requireAllNonNull(orderId, orderDate, deadline, price, remark, status, person);
+                 Price price, Remark remark, Status status, Client client) {
+        requireAllNonNull(orderId, orderDate, deadline, price, remark, status, client);
         this.orderId = orderId;
         this.orderDate = orderDate;
         this.deadline = deadline;
         this.price = price;
         this.remark = remark;
         this.status = status;
-        this.person = person;
+        this.client = client;
     }
 
 
@@ -79,13 +79,13 @@ public class Order {
         return this.getOrderId().equals(orderId);
     }
 
-    public Person getPerson() {
-        return person;
+    public Client getPerson() {
+        return client;
     }
 
-    public void setPerson(Person person) {
-        requireNonNull(person);
-        this.person = person;
+    public void setPerson(Client client) {
+        requireNonNull(client);
+        this.client = client;
     }
 
     @Override
@@ -118,7 +118,7 @@ public class Order {
 
     @Override
     public String toString() {
-        // Intentionally do not include Person within the order to prevent infinite loop
+        // Intentionally do not include Client within the order to prevent infinite loop
         return new ToStringBuilder(this)
                 .add("orderId", orderId)
                 .add("orderDate", orderDate)

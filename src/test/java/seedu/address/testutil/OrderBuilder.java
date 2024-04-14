@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 
+import seedu.address.model.client.Client;
 import seedu.address.model.order.Deadline;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.OrderDate;
@@ -8,7 +9,6 @@ import seedu.address.model.order.OrderId;
 import seedu.address.model.order.Price;
 import seedu.address.model.order.Remark;
 import seedu.address.model.order.Status;
-import seedu.address.model.person.Person;
 
 /**
  * A utility class to help with building Order objects.
@@ -29,7 +29,7 @@ public class OrderBuilder {
     private Price price;
     private Remark remark;
     private Status status;
-    private Person person;
+    private Client client;
 
 
     /**
@@ -42,7 +42,7 @@ public class OrderBuilder {
         price = new Price(DEFAULT_PRICE);
         remark = new Remark(DEFAULT_REMARK);
         status = new Status(DEFAULT_STATUS);
-        person = new PersonBuilder().build();
+        client = new PersonBuilder().build();
     }
 
     /**
@@ -55,7 +55,7 @@ public class OrderBuilder {
         price = orderToCopy.getPrice();
         remark = orderToCopy.getRemark();
         status = orderToCopy.getStatus();
-        person = orderToCopy.getPerson();
+        client = orderToCopy.getPerson();
     }
 
     /**
@@ -107,10 +107,10 @@ public class OrderBuilder {
     }
 
     /**
-     * Sets the {@code Person} of the {@code Order} that we are building.
+     * Sets the {@code Client} of the {@code Order} that we are building.
      */
-    public OrderBuilder withPerson(Person person) {
-        this.person = person;
+    public OrderBuilder withPerson(Client client) {
+        this.client = client;
         return this;
     }
 
@@ -119,7 +119,7 @@ public class OrderBuilder {
      * Builds the Order object.
      */
     public Order build() {
-        return new Order(orderId, orderDate, deadline, price, remark, status, person);
+        return new Order(orderId, orderDate, deadline, price, remark, status, client);
     }
 
 }

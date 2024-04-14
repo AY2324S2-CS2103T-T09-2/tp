@@ -1,4 +1,4 @@
-package seedu.address.model.person;
+package seedu.address.model.client;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,13 +16,13 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.client.exceptions.DuplicatePersonException;
+import seedu.address.model.client.exceptions.PersonNotFoundException;
 import seedu.address.model.order.Order;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.OrderBuilder;
 import seedu.address.testutil.PersonBuilder;
 
-public class UniquePersonListTest {
+public class UniqueClientListTest {
 
     private final UniquePersonList uniquePersonList = new UniquePersonList();
 
@@ -45,7 +45,7 @@ public class UniquePersonListTest {
     @Test
     public void contains_personWithSameIdentityFieldsInList_returnsTrue() {
         uniquePersonList.add(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Client editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(uniquePersonList.contains(editedAlice));
     }
@@ -88,7 +88,7 @@ public class UniquePersonListTest {
     @Test
     public void setPerson_editedPersonHasSameIdentity_success() {
         uniquePersonList.add(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+        Client editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         uniquePersonList.setPerson(ALICE, editedAlice);
         UniquePersonList expectedUniquePersonList = new UniquePersonList();
@@ -133,21 +133,21 @@ public class UniquePersonListTest {
     @Test
     public void addOrder_existingPerson_addOrder() {
         Order order = new OrderBuilder().build();
-        Person person = new PersonBuilder().build();
-        uniquePersonList.add(person);
-        Person editedPerson = person.addOrder(order);
-        uniquePersonList.setPersonAndAddOrder(person, editedPerson, order);
+        Client client = new PersonBuilder().build();
+        uniquePersonList.add(client);
+        Client editedClient = client.addOrder(order);
+        uniquePersonList.setPersonAndAddOrder(client, editedClient, order);
         assertEquals(1, uniquePersonList.asUnmodifiableObservableListOrders().size());
     }
 
     @Test
     public void removeOrder_existingPersonAndOrder_removeOrder() {
         Order order = new OrderBuilder().build();
-        Person person = new PersonBuilder().build();
-        uniquePersonList.add(person);
-        Person editedPerson = person.addOrder(order);
-        uniquePersonList.setPersonAndAddOrder(person, editedPerson, order);
-        uniquePersonList.setPersonAndDeleteOrder(editedPerson, person, order);
+        Client client = new PersonBuilder().build();
+        uniquePersonList.add(client);
+        Client editedClient = client.addOrder(order);
+        uniquePersonList.setPersonAndAddOrder(client, editedClient, order);
+        uniquePersonList.setPersonAndDeleteOrder(editedClient, client, order);
         assertEquals(0, uniquePersonList.asUnmodifiableObservableListOrders().size());
     }
 
@@ -167,14 +167,14 @@ public class UniquePersonListTest {
 
     @Test
     public void setPersons_nullList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> uniquePersonList.setPersons((List<Person>) null));
+        assertThrows(NullPointerException.class, () -> uniquePersonList.setPersons((List<Client>) null));
     }
 
     @Test
     public void setPersons_list_replacesOwnListWithProvidedList() {
         uniquePersonList.add(ALICE);
-        List<Person> personList = Collections.singletonList(BOB);
-        uniquePersonList.setPersons(personList);
+        List<Client> clientList = Collections.singletonList(BOB);
+        uniquePersonList.setPersons(clientList);
         UniquePersonList expectedUniquePersonList = new UniquePersonList();
         expectedUniquePersonList.add(BOB);
         assertEquals(expectedUniquePersonList, uniquePersonList);
@@ -182,8 +182,8 @@ public class UniquePersonListTest {
 
     @Test
     public void setPersons_listWithDuplicatePersons_throwsDuplicatePersonException() {
-        List<Person> listWithDuplicatePersons = Arrays.asList(ALICE, ALICE);
-        assertThrows(DuplicatePersonException.class, () -> uniquePersonList.setPersons(listWithDuplicatePersons));
+        List<Client> listWithDuplicateClients = Arrays.asList(ALICE, ALICE);
+        assertThrows(DuplicatePersonException.class, () -> uniquePersonList.setPersons(listWithDuplicateClients));
     }
 
     @Test
@@ -212,15 +212,15 @@ public class UniquePersonListTest {
     @Test
     public void setPersonAndAddOrder_validPersonAndOrder_success() {
         UniquePersonList uniquePersonList = new UniquePersonList();
-        Person originalPerson = new PersonBuilder(ALICE).build();
-        Person editedPerson = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
+        Client originalClient = new PersonBuilder(ALICE).build();
+        Client editedClient = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
         OrderBuilder orderBuilder = new OrderBuilder();
         Order newOrder = orderBuilder.build();
 
-        uniquePersonList.add(originalPerson);
-        assertDoesNotThrow(() -> uniquePersonList.setPersonAndAddOrder(originalPerson, editedPerson, newOrder));
+        uniquePersonList.add(originalClient);
+        assertDoesNotThrow(() -> uniquePersonList.setPersonAndAddOrder(originalClient, editedClient, newOrder));
 
-        assertTrue(uniquePersonList.contains(editedPerson));
+        assertTrue(uniquePersonList.contains(editedClient));
     }
 
     @Test
@@ -238,14 +238,14 @@ public class UniquePersonListTest {
     @Test
     public void setPersonAndDeleteOrder_orderDoesNotExist_personUnchanged() {
         UniquePersonList uniquePersonList = new UniquePersonList();
-        Person originalPerson = new PersonBuilder(ALICE).build();
-        Person editedPerson = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
+        Client originalClient = new PersonBuilder(ALICE).build();
+        Client editedClient = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
         OrderBuilder orderBuilder = new OrderBuilder();
         Order newOrder = orderBuilder.build();
 
-        uniquePersonList.add(originalPerson);
+        uniquePersonList.add(originalClient);
 
-        assertDoesNotThrow(() -> uniquePersonList.setPersonAndDeleteOrder(originalPerson, editedPerson, newOrder));
+        assertDoesNotThrow(() -> uniquePersonList.setPersonAndDeleteOrder(originalClient, editedClient, newOrder));
     }
 
     @Test

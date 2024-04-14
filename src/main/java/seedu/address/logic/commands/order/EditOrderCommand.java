@@ -22,13 +22,13 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.client.Client;
 import seedu.address.model.order.Deadline;
 import seedu.address.model.order.Order;
 import seedu.address.model.order.OrderDate;
 import seedu.address.model.order.Price;
 import seedu.address.model.order.Remark;
 import seedu.address.model.order.Status;
-import seedu.address.model.person.Person;
 
 
 /**
@@ -38,7 +38,7 @@ public class EditOrderCommand extends Command {
     public static final String COMMAND_WORD = "editOrder";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the order identified "
-            + "by the index number used in the displayed person list. "
+            + "by the index number used in the displayed client list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + "DATE] "
@@ -100,29 +100,29 @@ public class EditOrderCommand extends Command {
         Order orderToEdit = lastShownOrderList.get(targetIndex.getZeroBased());
         Order editedOrder = createEditedOrder(orderToEdit, editOrderDescriptor);
 
-        List<Person> personList = model.getFilteredPersonList();
-        Pair<Person, Person> personPair = getEditedPerson(personList, orderToEdit, editedOrder);
-        Person personToEdit = personPair.getFirst();
-        Person editedPerson = personPair.getSecond();
+        List<Client> clientList = model.getFilteredPersonList();
+        Pair<Client, Client> personPair = getEditedPerson(clientList, orderToEdit, editedOrder);
+        Client clientToEdit = personPair.getFirst();
+        Client editedClient = personPair.getSecond();
 
-        model.setPersonAndEditOrder(personToEdit, editedPerson, orderToEdit, editedOrder);
+        model.setPersonAndEditOrder(clientToEdit, editedClient, orderToEdit, editedOrder);
         model.updateFilteredOrderList(PREDICATE_SHOW_ALL_ORDERS);
         return new CommandResult(String.format(MESSAGE_EDIT_ORDER_SUCCESS, Messages.format(editedOrder)));
     }
 
-    private Pair<Person, Person> getEditedPerson(List<Person> personList, Order orderToEdit, Order editedOrder) throws
+    private Pair<Client, Client> getEditedPerson(List<Client> clientList, Order orderToEdit, Order editedOrder) throws
             CommandException {
-        for (Person person : personList) {
-            if (person.getOrders().contains(orderToEdit)) {
-                Set<Order> newOrders = new HashSet<>(person.getOrders());
+        for (Client client : clientList) {
+            if (client.getOrders().contains(orderToEdit)) {
+                Set<Order> newOrders = new HashSet<>(client.getOrders());
                 newOrders.remove(orderToEdit);
                 newOrders.add(editedOrder);
 
-                Person editedPerson = new Person(
-                        person.getName(), person.getPhone(), person.getEmail(),
-                        person.getAddress(), person.getTags(), newOrders);
+                Client editedClient = new Client(
+                        client.getName(), client.getPhone(), client.getEmail(),
+                        client.getAddress(), client.getTags(), newOrders);
 
-                return new Pair<>(person, editedPerson);
+                return new Pair<>(client, editedClient);
             }
         }
         throw new CommandException("Failed to find the client associated with this order!");
