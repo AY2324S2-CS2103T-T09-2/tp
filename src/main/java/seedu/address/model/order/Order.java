@@ -106,8 +106,6 @@ public class Order {
                 && otherOrder.getRemark().equals(getRemark())
                 && otherOrder.getStatus().equals(getStatus())
                 && Objects.equals(otherOrder.getPerson(), getPerson());
-
-
     }
 
 

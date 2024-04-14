@@ -7,6 +7,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_ORDERS;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
@@ -43,6 +44,15 @@ public class AddOrderCommand extends Command {
         this.order = order;
     }
 
+    /**
+     * Generates a command execution success message based on whether
+     * the order is added to or removed from
+     * {@code personToEdit}.
+     */
+    private String generateSuccessMessage(Person personToEdit) {
+        return String.format(MESSAGE_SUCCESS, personToEdit.getName());
+    }
+
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
@@ -61,12 +71,25 @@ public class AddOrderCommand extends Command {
         return new CommandResult(generateSuccessMessage(editedPerson));
     }
 
-    /**
-     * Generates a command execution success message based on whether
-     * the order is added to or removed from
-     * {@code personToEdit}.
-     */
-    private String generateSuccessMessage(Person personToEdit) {
-        return String.format(MESSAGE_SUCCESS, personToEdit.getName());
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof AddOrderCommand)) {
+            return false;
+        }
+
+        AddOrderCommand otherAddCommand = (AddOrderCommand) other;
+        return order.equals(otherAddCommand.order) && index.equals(otherAddCommand.index);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("index", index)
+                .toString();
     }
 }

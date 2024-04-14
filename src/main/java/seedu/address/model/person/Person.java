@@ -89,6 +89,18 @@ public class Person {
     }
 
     /**
+     * Returns a new Person object, with the specified Order removed to the orders object.
+     *
+     * @param order the order to be removed
+     * @return new Person object
+     */
+    public Person removeOrder(Order order) {
+        Set<Order> newOrders = new HashSet<>(orders);
+        newOrders.remove(order);
+        return new Person(this.name, this.phone, this.email, this.address, this.getTags(), newOrders);
+    }
+
+    /**
      * Returns true if both persons have the same name.
      * This defines a weaker notion of equality between two persons.
      */
